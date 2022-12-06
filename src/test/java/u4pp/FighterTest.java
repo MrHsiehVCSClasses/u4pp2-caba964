@@ -48,12 +48,12 @@ public class FighterTest {
 
     @Test
     public void constructor_setsDefaultLevelCorrectly() {
-        assertEquals(1, fighter.getLevel());
+        assertEquals(1, fighter.getLvl());
     }
 
     @Test
     public void constructor_setsDefaultEXPCorrectly() {
-        assertEquals(0, fighter.getEXP());
+        assertEquals(0, fighter.getXp());
     }
 
     @Test
@@ -70,34 +70,34 @@ public class FighterTest {
     @Test
     // must also work if the character levels multiple times
     public void gainEXP_whenLeveling_resetsEXP() {
-        int originalEXP = fighter.getEXP();
-        fighter.gainEXP(fighter.getLevel());
-        int newEXP = fighter.getEXP();
+        int originalEXP = fighter.getXp();
+        fighter.gainEXP(fighter.getLvl());
+        int newEXP = fighter.getXp();
         assertEquals(originalEXP, newEXP);
 
         fighter.gainEXP(1);
-        originalEXP = fighter.getEXP();
-        fighter.gainEXP(fighter.getLevel());
-        newEXP = fighter.getEXP();
+        originalEXP = fighter.getXp();
+        fighter.gainEXP(fighter.getLvl());
+        newEXP = fighter.getXp();
         assertEquals(originalEXP, newEXP);
 
-        originalEXP = fighter.getEXP();
-        fighter.gainEXP(fighter.getLevel() + fighter.getLevel() + 1);
-        newEXP = fighter.getEXP();
+        originalEXP = fighter.getXp();
+        fighter.gainEXP(fighter.getLvl() + fighter.getLvl() + 1);
+        newEXP = fighter.getXp();
         assertEquals(originalEXP, newEXP);
     }
 
     @Test
     // must also work if the character levels multiple times
     public void gainEXP_whenLeveling_incrementsLevel() {
-        int originalLevel = fighter.getLevel();
-        fighter.gainEXP(fighter.getLevel());
-        int newLevel = fighter.getLevel();
+        int originalLevel = fighter.getLvl();
+        fighter.gainEXP(fighter.getLvl());
+        int newLevel = fighter.getLvl();
         assertEquals(originalLevel + 1, newLevel);
 
-        originalLevel = fighter.getLevel();
-        fighter.gainEXP(fighter.getLevel() + fighter.getLevel() + 1);
-        newLevel = fighter.getLevel();
+        originalLevel = fighter.getLvl();
+        fighter.gainEXP(fighter.getLvl() + fighter.getLvl() + 1);
+        newLevel = fighter.getLvl();
         assertEquals(originalLevel+2, newLevel);
     }
 
@@ -106,14 +106,14 @@ public class FighterTest {
     public void gainEXP_whenLeveling_refillsHealth() {
         fighter.takeDamage(2);
         int originalHealth = fighter.getHealth();
-        fighter.gainEXP(fighter.getLevel());
+        fighter.gainEXP(fighter.getLvl());
         int newHealth = fighter.getHealth();
         assertTrue(originalHealth <  newHealth);
         assertEquals(fighter.getMaxHealth(), newHealth);
 
         fighter.takeDamage(2);
         originalHealth = fighter.getHealth();
-        fighter.gainEXP(fighter.getLevel() + fighter.getLevel() + 1);
+        fighter.gainEXP(fighter.getLvl() + fighter.getLvl() + 1);
         newHealth = fighter.getHealth();
         assertTrue(originalHealth <  newHealth);
         assertEquals(fighter.getMaxHealth(), newHealth);
@@ -124,7 +124,7 @@ public class FighterTest {
     public void gainEXP_whenLeveling_increasesStats() {
         int originalAttack = fighter.getAttackPower();
         int originalMaxHealth = fighter.getMaxHealth();
-        fighter.gainEXP(fighter.getLevel());
+        fighter.gainEXP(fighter.getLvl());
         int newAttack = fighter.getAttackPower();
         int newMaxHealth = fighter.getMaxHealth();
         assertEquals(originalAttack+1, newAttack);
@@ -132,7 +132,7 @@ public class FighterTest {
 
         originalAttack = fighter.getAttackPower();
         originalMaxHealth = fighter.getMaxHealth();
-        fighter.gainEXP(fighter.getLevel() + fighter.getLevel() + 1);
+        fighter.gainEXP(fighter.getLvl() + fighter.getLvl() + 1);
         newAttack = fighter.getAttackPower();
         newMaxHealth = fighter.getMaxHealth();
         assertEquals(originalAttack+1+1, newAttack);
@@ -214,8 +214,8 @@ public class FighterTest {
         assertTrue(s.contains("" + fighter.getMaxHealth()));
         assertTrue(s.contains("" + (fighter.getMaxHealth()-1))); // current health
         assertTrue(s.contains("" + fighter.getAttackPower()));
-        assertTrue(s.contains("" + fighter.getLevel()));
-        assertTrue(s.contains("" + fighter.getEXP()));
+        assertTrue(s.contains("" + fighter.getLvl()));
+        assertTrue(s.contains("" + fighter.getXp()));
         assertTrue(s.contains("" + fighter.getIsBlocking()));
         assertTrue(s.contains("" + fighter.getFocusStacks()));
 
